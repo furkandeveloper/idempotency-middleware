@@ -8,6 +8,7 @@ import (
 	"idempotency-middleware/internal/redis"
 )
 
+// main function
 func main() {
 	cfg := redis.LoadConfig(1, "X-Request-Id")
 
