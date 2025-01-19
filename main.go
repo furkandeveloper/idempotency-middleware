@@ -18,8 +18,8 @@ func main() {
 
 	idempotencyMiddleware := pkg.NewIdempotencyMiddleware(redisClient, pkg.Option(cfg.Idempotency))
 
-	e.GET("/no-middleware", pkg.ExampleHandlerWithoutIdempotency)
-	e.GET("/with-middleware", pkg.ExampleHandler, idempotencyMiddleware)
+	e.GET("/no-middleware", ExampleHandlerWithoutIdempotency)
+	e.GET("/with-middleware", ExampleHandler, idempotencyMiddleware)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
