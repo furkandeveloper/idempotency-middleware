@@ -1,4 +1,4 @@
-module idempotency-middleware
+module github.com/furkandeveloper/idempotency-middleware
 
 go 1.23.4
 

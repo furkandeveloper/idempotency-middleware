@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/furkandeveloper/idempotency-middleware/internal/handlers"
+	idempotency "github.com/furkandeveloper/idempotency-middleware/internal/middleware"
+	"github.com/furkandeveloper/idempotency-middleware/internal/redis"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"idempotency-middleware/internal/handlers"
-	idempotency "idempotency-middleware/internal/middleware"
-	"idempotency-middleware/internal/redis"
 )
 
 // main function
