@@ -1,4 +1,4 @@
-package redis
+package pkg
 
 import (
 	"github.com/go-redis/redis/v8"

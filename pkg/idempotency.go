@@ -1,4 +1,4 @@
-package idempotency
+package pkg
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-type Config struct {
+type Option struct {
 	HeaderKey      string
 	ExpirationTime time.Duration
 }
@@ -34,10 +34,10 @@ func (r *responseRecorder) Write(b []byte) (int, error) {
 	return r.writer.Write(b)
 }
 
-func NewIdempotencyMiddleware(redisClient *redis.Client, cfg Config) echo.MiddlewareFunc {
+func NewIdempotencyMiddleware(redisClient *redis.Client, opt Option) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			requestID := c.Request().Header.Get(cfg.HeaderKey)
+			requestID := c.Request().Header.Get(opt.HeaderKey)
 			if requestID == "" {
 				return echo.NewHTTPError(http.StatusBadRequest, "Missing idempotency key")
 			}
@@ -57,7 +57,7 @@ func NewIdempotencyMiddleware(redisClient *redis.Client, cfg Config) echo.Middle
 				return err
 			}
 
-			redisClient.Set(ctx, requestID, rec.body.String(), cfg.ExpirationTime)
+			redisClient.Set(ctx, requestID, rec.body.String(), opt.ExpirationTime)
 
 			return nil
 		}
